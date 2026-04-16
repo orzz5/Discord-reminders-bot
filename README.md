@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Discord Reminder Bot
 
 A professional Discord reminder bot with advanced scheduling, statistics tracking, and streak management.
@@ -35,8 +34,8 @@ A professional Discord reminder bot with advanced scheduling, statistics trackin
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/orzz/discord-reminder-bot.git
-   cd discord-reminder-bot
+   git clone https://github.com/orzz/Discord-reminder-bot.git
+   cd Discord-reminder-bot
    ```
 
 2. **Install Dependencies**
@@ -91,7 +90,7 @@ Use `/reminder` with the following options:
 ## Project Structure
 
 ```
-discord-reminder-bot/
+Discord-reminder-bot/
 ├── src/
 │   ├── commands/          # Slash command implementations
 │   │   ├── reminder.js
@@ -127,11 +126,32 @@ discord-reminder-bot/
 - Embed Links
 - Add Reactions
 
-### Environment Variables
-You can use environment variables instead of config.json:
+### Setup Method 1: Using config.json
+1. **Create config.json file:**
+   ```bash
+   # Create config.json with template
+   echo {
+     "token": "YOUR_BOT_TOKEN_HERE",
+     "clientId": "YOUR_CLIENT_ID_HERE", 
+     "guildId": "YOUR_GUILD_ID_HERE"
+   } > config.json
+   ```
+
+2. **Fill in your credentials:**
+   - `token`: Your Discord bot token from Developer Portal
+   - `clientId`: Your bot's application ID
+   - `guildId`: Your server ID (optional, for faster command deployment)
+
+### Setup Method 2: Using Environment Variables
 ```bash
 cp .env.example .env
 # Edit .env with your credentials
+```
+
+### Where to Get Credentials:
+- **Bot Token**: Discord Developer Portal → Bot → Token
+- **Client ID**: Discord Developer Portal → General Information → Application ID
+- **Guild ID**: Right-click server in Discord → Copy Server ID (enable Developer Mode)
 ```
 
 ## Database
@@ -204,7 +224,3 @@ For support or questions:
 - Multi-timezone support
 - Interactive button system
 - Comprehensive error handling
-=======
-# Discord-reminders-bot
-Discord reminder bot with /reminder, /list, /remove, /stats commands. Create scheduled reminders, track completion stats, build streaks, and manage tasks with timezone support and repeat options.
->>>>>>> c112e85b934447f90f2a577a2663f12f6c56bbb5
