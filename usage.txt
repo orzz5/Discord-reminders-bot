@@ -1,0 +1,1344 @@
+DISCORD REMINDER BOT - USAGE GUIDE
+==================================
+
+This guide provides detailed examples and explanations for using the Discord Reminder Bot.
+
+TABLE OF CONTENTS
+------------------
+1. QUICK START
+2. SETUP INSTRUCTIONS
+3. COMMAND DETAILS
+4. TIMEZONE INFORMATION
+5. REMINDER NOTIFICATIONS
+6. STREAK SYSTEM
+7. ERROR HANDLING
+8. TROUBLESHOOTING
+9. BEST PRACTICES
+10. EXAMPLE WORKFLOWS
+11. SUPPORT
+
+QUICK START
+-----------
+
+1. Create your first reminder:
+   /reminder name:"Morning workout" time:"07:00" day:"Monday" timezone:"America/New_York" ping:true
+
+2. View all reminders:
+   /list
+
+3. Check your statistics:
+   /stats
+
+SETUP INSTRUCTIONS
+------------------
+
+BEFORE YOU START:
+1. Ensure the bot is online in your server
+2. Check that you have permission to use slash commands
+3. Make sure DMs from server members are enabled (for reminder notifications)
+
+GETTING YOUR TIMEZONE:
+1. Find your timezone from the list in section 4
+2. Remember the exact name (e.g., "America/New_York", not "EST")
+3. This ensures reminders trigger at the correct local time
+
+UNDERSTANDING TIME FORMAT:
+- Use 24-hour format: HH:MM
+- Examples: 09:00 (9 AM), 14:30 (2:30 PM), 23:45 (11:45 PM)
+- Invalid: 9:00 AM, 2:30 PM, 24:00, 12:60
+
+FIRST REMINDER EXAMPLE:
+/reminder name:"Test reminder" time:"15:30" day:"Today" timezone:"UTC" ping:true
+This creates a test reminder for 3:30 PM UTC today with ping enabled.
+
+COMMAND DETAILS
+==============
+
+/reminder - Create New Reminder
+--------------------------------
+Required Parameters:
+- name: Description/name for your reminder (max 100 characters)
+- time: Time in HH:MM format (24-hour format, e.g., 14:30)
+- day: Day of the week (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+- timezone: Your timezone from the dropdown menu
+- ping: Whether to ping you when reminder triggers (true/false)
+
+STEP-BY-STEP EXAMPLES:
+
+Example 1 - Work Meeting:
+/reminder name:"Team standup meeting" time:"09:30" day:"Monday" timezone:"America/New_York" ping:true
+→ Creates a reminder for Monday 9:30 AM Eastern Time with ping enabled
+
+Example 2 - Personal Reminder:
+/reminder name:"Take vitamins" time:"08:00" day:"Daily" timezone:"Europe/London" ping:false
+→ Creates a daily reminder for 8:00 AM London time without ping
+
+Example 3 - Weekly Task:
+/reminder name:"Submit weekly report" time:"17:00" day:"Friday" timezone:"UTC" ping:true
+→ Creates a Friday 5:00 PM UTC reminder with ping
+
+DETAILED PARAMETER EXPLANATION:
+
+NAME PARAMETER:
+- Max 100 characters
+- Be descriptive but concise
+- Examples: "Morning workout", "Call mom", "Team meeting", "Take medication"
+- Avoid special characters that might cause issues
+
+TIME PARAMETER:
+- Format: HH:MM (24-hour clock)
+- Hours: 00-23, Minutes: 00-59
+- Examples: "06:00" (6 AM), "12:30" (12:30 PM), "18:45" (6:45 PM), "23:59" (11:59 PM)
+- Common mistakes to avoid: "6:00", "6:00 AM", "24:00", "12:60"
+
+DAY PARAMETER:
+- Select from dropdown: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+- Each reminder is tied to a specific day
+- Use repeat functionality for multiple days
+
+TIMEZONE PARAMETER:
+- Choose from 20+ available timezones
+- Important for accurate timing
+- Examples: "America/New_York", "Europe/London", "Asia/Tokyo", "UTC"
+
+PING PARAMETER:
+- true: Bot will @mention you when reminder triggers
+- false: Bot sends reminder without mention
+- Recommended for important reminders
+- Consider server etiquette for frequent reminders
+
+COMMON VALIDATION RULES:
+- Time must be in 24-hour format (HH:MM)
+- Invalid times like "25:99" or "12:60" will be rejected with clear error messages
+- Time cannot be in the past for the selected day
+- Duplicate reminders with identical settings are not allowed
+- Each user can have unlimited reminders
+
+/list - View Active Reminders
+----------------------------
+Shows all your active reminders with comprehensive details including:
+- Reminder name and unique ID
+- Scheduled time and timezone
+- Day(s) of the week
+- Ping setting (Yes/No)
+- Repeat information (if applicable)
+- Time until next occurrence
+
+EXAMPLE OUTPUTS:
+
+Single Reminder:
+📋 Your Active Reminders
+You have 1 active reminder
+
+1. Morning workout
+🕐 7:00 AM (America/New_York)
+📅 Monday
+🔔 Ping: Yes
+🆔 ID: 123
+
+Multiple Reminders:
+📋 Your Active Reminders
+You have 3 active reminders
+
+1. Morning workout
+🕐 7:00 AM (America/New_York)
+📅 Monday, Wednesday, Friday
+🔄 Repeats: Monday, Wednesday, Friday
+🔔 Ping: Yes
+🆔 ID: 123
+
+2. Team meeting
+🕐 2:30 PM (America/New_York)
+📅 Tuesday, Thursday
+🔄 Repeats: Tuesday, Thursday
+🔔 Ping: Yes
+🆔 ID: 124
+
+3. Take medication
+🕐 8:00 PM (America/New_York)
+📅 Daily
+🔔 Ping: No
+🆔 ID: 125
+
+No Reminders:
+📋 No Active Reminders
+You don't have any active reminders. Use `/reminder` to create one!
+
+FEATURES:
+- Automatic pagination for 25+ reminders
+- Color-coded information display
+- Time formatting in 12-hour format for readability
+- Repeat days clearly listed
+- Unique IDs for easy reference
+
+/remove - Remove Specific Reminder
+----------------------------------
+Select a reminder from the autocomplete list to remove it permanently.
+
+HOW TO USE:
+1. Type /remove
+2. Start typing the reminder name or time
+3. Select from the autocomplete dropdown
+4. Confirm removal
+
+AUTOCOMPLETE FORMAT:
+Reminders appear as: "Name - Time on Day"
+Examples:
+- "Morning workout - 07:00 on Monday"
+- "Team meeting - 14:30 on Wednesday"
+- "Take medication - 20:00 on Daily"
+
+EXAMPLE:
+/remove reminder:"Morning workout - 07:00 on Monday"
+
+WHAT HAPPENS:
+- Reminder is immediately deactivated
+- Won't appear in /list anymore
+- Won't trigger notifications
+- Statistics remain intact
+- Can be recreated with /reminder
+
+SAFETY FEATURES:
+- Only your reminders appear in autocomplete
+- Confirmation not required (instant removal)
+- No way to undo (be careful!)
+
+/clean - Remove All Reminders
+-----------------------------
+Removes ALL your active reminders with a confirmation dialog for safety.
+
+STEP-BY-STEP PROCESS:
+1. Run /clean command
+2. Bot shows confirmation message with reminder count
+3. Click "✅ Yes, Remove All" to confirm
+4. OR click "❌ Cancel" to abort
+
+CONFIRMATION DIALOG EXAMPLE:
+⚠️ Confirm Removal
+Are you sure you want to remove all **5** of your active reminders?
+
+This action cannot be undone!
+
+[✅ Yes, Remove All] [❌ Cancel]
+
+SAFETY FEATURES:
+- 30-second timeout for confirmation
+- Clear warning about irreversible action
+- Shows exact number of reminders to be deleted
+- Cancellation option always available
+
+WHAT GETS DELETED:
+- All active reminders
+- Repeat settings
+- Future notifications
+- Reminder data (not statistics)
+
+WHAT REMAINS:
+- Your completion statistics
+- Streak information
+- Historical data
+
+USE CASES:
+- Starting fresh with new schedule
+- Leaving a server
+- Cleaning up old reminders
+- Bot maintenance
+
+/edit - Modify Existing Reminder
+---------------------------------
+Modify specific aspects of existing reminders without recreating them.
+
+PARAMETERS:
+- reminder: Select reminder to edit (autocomplete)
+- time: New time in HH:MM format (optional)
+- day: New day of the week (optional)
+- timezone: New timezone (optional)
+
+DETAILED EXAMPLES:
+
+Change Time Only:
+/edit reminder:"Team meeting - 14:30 on Wednesday" time:"16:00"
+→ Changes meeting from 2:30 PM to 4:00 PM, keeps same day and timezone
+
+Change Day Only:
+/edit reminder:"Team meeting - 14:30 on Wednesday" day:"Thursday"
+→ Moves meeting to Thursday, keeps same time and timezone
+
+Change Timezone Only:
+/edit reminder:"Team meeting - 14:30 on Wednesday" timezone:"Europe/London"
+→ Changes timezone, time appears different in local time
+
+Multiple Changes:
+/edit reminder:"Team meeting - 14:30 on Wednesday" time:"16:00" day:"Friday" timezone:"UTC"
+→ Changes time, day, and timezone all at once
+
+IMPORTANT FEATURES:
+- Only modify the fields you want to change
+- Unspecified fields remain unchanged
+- All validation rules apply (time format, past time check, etc.)
+- Autocomplete shows only your reminders
+- Changes take effect immediately
+
+VALIDATION RULES:
+- Time must be valid HH:MM format
+- New time cannot be in past for selected day
+- Timezone must be from supported list
+- Day must be valid weekday
+
+/repeat - Set Repeat Days
+--------------------------
+Set reminders to repeat on multiple days while maintaining the same time.
+
+PARAMETERS:
+- reminder: Select reminder to modify (autocomplete)
+- days: Select day to add/remove from repeat schedule
+
+HOW IT WORKS:
+- If the day is NOT in the repeat list, it gets ADDED
+- If the day IS already in the repeat list, it gets REMOVED
+- You can run this command multiple times to build your repeat schedule
+- Original day is preserved unless specifically removed
+
+STEP-BY-STEP EXAMPLES:
+
+Start with single reminder:
+/reminder name:"Morning workout" time:"07:00" day:"Monday" timezone:"America/New_York" ping:true
+
+Add Tuesday:
+/repeat reminder:"Morning workout - 07:00 on Monday" days:"Tuesday"
+→ Now repeats Monday AND Tuesday
+
+Add Wednesday:
+/repeat reminder:"Morning workout - 07:00 on Monday" days:"Wednesday"
+→ Now repeats Monday, Tuesday, AND Wednesday
+
+Add remaining weekdays:
+/repeat reminder:"Morning workout - 07:00 on Monday" days:"Thursday"
+/repeat reminder:"Morning workout - 07:00 on Monday" days:"Friday"
+→ Now repeats Monday through Friday
+
+Remove Monday:
+/repeat reminder:"Morning workout - 07:00 on Monday" days:"Monday"
+→ Now repeats Tuesday through Friday only
+
+ADVANCED FEATURES:
+- Unlimited repeat days per reminder
+- Each repeat maintains same time and timezone
+- Original reminder settings preserved
+- Can mix and match any days
+- Easy to add/remove individual days
+
+COMMON USE CASES:
+- Daily habits: Add all 7 days
+- Work week: Add Monday-Friday
+- Weekends: Add Saturday-Sunday
+- Specific schedule: Add only needed days
+
+/stats - View Statistics and Streaks
+------------------------------------
+Comprehensive performance tracking with detailed analytics and achievements.
+
+STATISTICS DISPLAYED:
+- ✅ Completed Reminders: Total count of finished reminders
+- ❌ Not Completed: Total count of missed reminders
+- 📈 Total Reminders: Overall count of all reminders
+- 📊 Completion Rate: Percentage of completed reminders
+- 🔥 Current Streak: Days in a row of completed reminders
+- ⭐ Longest Streak: Best streak ever achieved
+
+EXAMPLE OUTPUTS:
+
+New User:
+📊 Your Reminder Statistics
+Here's your performance overview
+
+✅ Completed Reminders: 0
+❌ Not Completed: 0
+📈 Total Reminders: 0
+📊 Completion Rate: 0%
+🔥 Current Streak: 0 days
+⭐ Longest Streak: 0 days
+
+You haven't completed any reminders yet. Start creating reminders with `/reminder` and build your streak!
+
+Active User:
+📊 Your Reminder Statistics
+Here's your performance overview
+
+✅ Completed Reminders: 24
+❌ Not Completed: 6
+📈 Total Reminders: 30
+📊 Completion Rate: 80%
+🔥 Current Streak: 5 days
+⭐ Longest Streak: 12 days
+
+🏆 Achievement: Excellent performance!
+
+ACHIEVEMENT SYSTEM:
+
+Performance Badges:
+- 🏆 Excellent (80%+ completion rate)
+- 💪 Keep Going (60-79% completion rate)
+- 📚 Room for Improvement (below 60%)
+
+Streak Milestones:
+- 🎉 7+ day streak: Milestone achievement
+- � 30+ day streak: Dedicated user
+- ⭐ 100+ day streak: Legendary consistency
+
+DYNAMIC FEATURES:
+- Color-coded embeds based on performance
+- Personalized achievement messages
+- Progress tracking over time
+- Motivational feedback
+
+HOW STREAKS ARE CALCULATED:
+- Complete a reminder: +1 day to streak
+- Miss a reminder: Reset to 0
+- Ignore reminder: No change (neutral)
+- Streak continues across calendar days
+- Only consecutive days count
+
+STATISTICS TIPS:
+- Check stats weekly to track progress
+- Focus on maintaining streaks
+- Use repeat reminders for consistency
+- Don't ignore reminders (affects engagement)
+
+TIMEZONE INFORMATION
+-------------------
+
+COMPREHENSIVE TIMEZONE SUPPORT:
+
+NORTH AMERICA:
+- UTC (Coordinated Universal Time)
+- America/New_York (Eastern Time: ET/EST/EDT)
+- America/Chicago (Central Time: CT/CST/CDT)
+- America/Denver (Mountain Time: MT/MST/MDT)
+- America/Los_Angeles (Pacific Time: PT/PST/PDT)
+
+EUROPE:
+- Europe/London (GMT/BST - British Summer Time)
+- Europe/Paris (CET/CEST - Central European Time)
+- Europe/Berlin (CET/CEST)
+- Europe/Madrid (CET/CEST)
+- Europe/Rome (CET/CEST)
+- Europe/Moscow (MSK - Moscow Standard Time)
+
+ASIA:
+- Asia/Tokyo (JST - Japan Standard Time)
+- Asia/Shanghai (CST - China Standard Time)
+- Asia/Hong_Kong (HKT - Hong Kong Time)
+- Asia/Singapore (SGT - Singapore Time)
+- Asia/Dubai (GST - Gulf Standard Time)
+- Asia/Kolkata (IST - India Standard Time)
+
+OCEANIA:
+- Australia/Sydney (AEST/AEDT)
+- Australia/Melbourne (AEST/AEDT)
+- Pacific/Auckland (NZST/NZDT)
+
+HOW TO CHOOSE YOUR TIMEZONE:
+
+1. IDENTIFY YOUR REGION:
+   - USA East Coast → America/New_York
+   - USA West Coast → America/Los_Angeles
+   - UK → Europe/London
+   - Central Europe → Europe/Paris
+   - Japan → Asia/Tokyo
+
+2. CONSIDER DAYLIGHT SAVING:
+   - Bot automatically handles DST changes
+   - No manual adjustment needed
+   - Times remain consistent year-round
+
+3. VERIFICATION TIPS:
+   - Test with a simple reminder
+   - Check if it triggers at expected local time
+   - Adjust if needed
+
+TIMEZONE EXAMPLES:
+
+New York User:
+/reminder name:"Morning coffee" time:"08:00" day:"Daily" timezone:"America/New_York" ping:true
+→ Triggers at 8:00 AM Eastern Time
+
+London User:
+/reminder name:"Afternoon tea" time:"16:00" day:"Daily" timezone:"Europe/London" ping:false
+→ Triggers at 4:00 PM London Time
+
+Tokyo User:
+/reminder name:"Lunch break" time:"12:30" day:"Daily" timezone:"Asia/Tokyo" ping:true
+→ Triggers at 12:30 PM Japan Time
+
+IMPORTANT NOTES:
+- All times are stored in your selected timezone
+- Bot automatically converts for scheduling
+- No need to calculate UTC offsets
+- Changing timezone doesn't affect existing reminders
+- Each user can have different timezone settings
+
+REMINDER NOTIFICATIONS
+---------------------
+
+HOW NOTIFICATIONS WORK:
+
+PRIMARY METHOD - DIRECT MESSAGE:
+1. Bot sends a DM to you when reminder triggers
+2. Message includes comprehensive reminder details
+3. Two interactive buttons provided for response
+4. Professional embed format with all relevant information
+
+EXAMPLE NOTIFICATION:
+⏰ Reminder
+
+**Team standup meeting**
+
+🕐 Scheduled Time: 09:30
+📅 Day: Monday
+🌍 Timezone: America/New_York
+
+Please mark this reminder as completed or not completed
+
+[✅ Finished] [❌ Not finished]
+
+INTERACTIVE BUTTONS:
+
+✅ FINISHED BUTTON:
+- Marks reminder as completed
+- Increases your streak by 1
+- Updates completion statistics
+- Buttons become disabled after clicking
+
+❌ NOT FINISHED BUTTON:
+- Marks reminder as missed
+- Resets your streak to 0
+- Updates completion statistics
+- Buttons become disabled after clicking
+
+SECURITY FEATURES:
+- Only reminder owner can interact with buttons
+- Buttons are single-use (cannot be changed)
+- 24-hour timeout window
+- Automatic button disabling after interaction
+
+FALLBACK SYSTEM:
+
+IF DM FAILS:
+1. Bot detects DM delivery failure
+2. Sends message in original channel where reminder was created
+3. Pings you: @username
+4. Explains DM failure: "I couldn't send you a DM, so here's your reminder:"
+5. Still includes interactive buttons
+6. All functionality preserved
+
+COMMON DM FAILURE REASONS:
+- DMs from server members disabled
+- Privacy settings blocking bot DMs
+- User blocking the bot
+- Server settings preventing DMs
+
+HOW TO FIX DM ISSUES:
+1. Enable DMs from server members:
+   - Discord Settings → Privacy & Safety
+   - Enable "Allow direct messages from server members"
+2. Check bot blocking status
+3. Verify server privacy settings
+
+BUTTON TIMEOUT SYSTEM:
+- Buttons remain active for 24 hours
+- After 24 hours: Buttons automatically disable
+- No interaction: Reminder marked as neutral
+- Neutral reminders don't affect stats or streak
+- Prevents old reminders from cluttering
+
+NOTIFICATION TIMING:
+- Precise to the minute
+- Respects your selected timezone
+- Handles daylight saving automatically
+- Reliable across bot restarts
+
+PROFESSIONAL FEATURES:
+- Clean embed design
+- Consistent formatting
+- Clear call-to-action
+- Error-resistant delivery
+- User privacy respected
+
+STREAK SYSTEM
+------------
+
+ADVANCED STREAK MECHANICS:
+
+HOW STREAKS WORK:
+- Complete a reminder: Streak increases by 1
+- Miss a reminder: Streak resets to 0
+- Ignore a reminder: No effect on streak (neutral)
+- Consecutive days: Maintained across calendar days
+- Longest streak: Best streak ever achieved
+
+DETAILED EXAMPLES:
+
+Building a Streak:
+Day 1: Complete reminder → Current streak: 1, Longest: 1
+Day 2: Complete reminder → Current streak: 2, Longest: 2
+Day 3: Complete reminder → Current streak: 3, Longest: 3
+Day 4: Miss reminder → Current streak: 0, Longest: 3
+Day 5: Complete reminder → Current streak: 1, Longest: 3
+
+Streak Scenarios:
+
+PERFECT WEEK:
+Monday: Complete → Streak: 1
+Tuesday: Complete → Streak: 2
+Wednesday: Complete → Streak: 3
+Thursday: Complete → Streak: 4
+Friday: Complete → Streak: 5
+Saturday: Complete → Streak: 6
+Sunday: Complete → Streak: 7
+
+MIXED WEEK:
+Monday: Complete → Streak: 1
+Tuesday: Complete → Streak: 2
+Wednesday: Miss → Streak: 0
+Thursday: Complete → Streak: 1
+Friday: Complete → Streak: 2
+Saturday: Ignore → Streak: 2
+Sunday: Complete → Streak: 3
+
+STREAK PRESERVATION TIPS:
+
+1. DAILY HABITS:
+   - Use repeat reminders for consistency
+   - Set multiple daily reminders
+   - Choose realistic times
+
+2. BACKUP REMINDERS:
+   - Set secondary reminders for important tasks
+   - Use different times for flexibility
+   - Create buffer time before deadlines
+
+3. STRATEGIC PLANNING:
+   - Don't schedule too many reminders
+   - Focus on high-priority tasks
+   - Build habits gradually
+
+4. RECOVERY STRATEGIES:
+   - After missing a reminder, immediately complete the next one
+   - Use multiple reminders to rebuild streak
+   - Don't get discouraged by resets
+
+STREAK MILESTONES:
+
+BEGINNER LEVELS:
+- 3 days: Getting started!
+- 7 days: One full week!
+- 14 days: Two weeks strong!
+
+INTERMEDIATE LEVELS:
+- 30 days: One month!
+- 60 days: Two months!
+- 90 days: Three months!
+
+ADVANCED LEVELS:
+- 100 days: Triple digits!
+- 180 days: Half a year!
+- 365 days: One full year!
+
+STREAK PSYCHOLOGY:
+
+Why Streaks Work:
+- Creates accountability
+- Builds momentum
+- Develops habits
+- Provides motivation
+- Tracks progress visually
+
+Avoiding Burnout:
+- Start with small, achievable reminders
+- Gradually increase difficulty
+- Take planned breaks when needed
+- Focus on consistency over perfection
+
+STREAK RECOVERY:
+
+After a Reset:
+1. Don't panic - resets are normal
+2. Complete the very next reminder
+3. Build back gradually
+4. Learn from what caused the miss
+5. Adjust reminder schedule if needed
+
+Preventing Resets:
+- Set reminder notifications on phone
+- Use multiple reminder methods
+- Share goals with friends
+- Review schedule weekly
+- Be realistic about commitments
+
+ERROR HANDLING
+--------------
+
+COMPREHENSIVE ERROR GUIDE:
+
+"Invalid time format"
+PROBLEM: Time entered doesn't match HH:MM 24-hour format
+SOLUTIONS:
+- Use HH:MM format (24-hour clock)
+- Valid examples: 09:00, 14:30, 23:45
+- Invalid examples: 9am, 2:30 PM, 24:00, 12:60, 25:99
+- Hours must be 00-23, minutes must be 00-59
+
+COMMON MISTAKES:
+- Using 12-hour format with AM/PM
+- Single-digit hours (use 09:00, not 9:00)
+- Invalid minute values (60+ minutes)
+- 24:00 (should be 00:00 for midnight)
+
+"Time is in the past"
+PROBLEM: Selected time has already passed for the chosen day
+SOLUTIONS:
+- Select a future time for the chosen day
+- Consider the next occurrence of that day
+- Check your timezone setting
+- For today, choose a time later than current time
+
+EXAMPLES:
+Current time: 2:30 PM Monday
+Invalid: "14:00 Monday" (already passed)
+Valid: "15:30 Monday" (future time)
+Valid: "14:00 Tuesday" (next day)
+
+"Duplicate reminder exists"
+PROBLEM: Identical reminder already exists
+SOLUTIONS:
+- Change reminder name, time, or settings
+- Each reminder must be unique in all aspects
+- Use /edit to modify existing reminders instead
+- Add small details to make it unique
+
+DUPLICATE CRITERIA:
+- Same name
+- Same time
+- Same day
+- Same timezone
+- Same ping setting
+- Same repeat days
+
+"Command not found"
+PROBLEM: Slash commands not available
+SOLUTIONS:
+- Wait a few seconds after bot starts
+- Check if bot has proper permissions
+- Ensure slash commands are enabled in server
+- Try reinviting the bot if needed
+
+PERMISSION CHECKLIST:
+- Bot has "Send Messages" permission
+- Bot has "Use Slash Commands" permission
+- Slash commands enabled in server settings
+- Bot is online and responsive
+
+"Reminder not found"
+PROBLEM: Trying to edit/remove non-existent reminder
+SOLUTIONS:
+- Use /list to see your active reminders
+- Check reminder ID is correct
+- Ensure reminder hasn't been removed
+- Reminder must be active to edit
+
+"Invalid timezone"
+PROBLEM: Selected timezone not supported
+SOLUTIONS:
+- Choose from dropdown menu only
+- Don't manually type timezone names
+- Check timezone list in this guide
+- Use standard timezone names
+
+"Autocomplete not working"
+PROBLEM: Command suggestions not appearing
+SOLUTIONS:
+- Start typing to trigger autocomplete
+- Wait for suggestions to load
+- Check internet connection
+- Ensure bot has proper permissions
+
+DATABASE ERRORS:
+"Failed to create reminder"
+- Try again in a few moments
+- Check if bot is online
+- Contact support if persistent
+
+"Failed to update reminder"
+- Verify reminder still exists
+- Check your input values
+- Try creating new reminder instead
+
+VALIDATION RULES SUMMARY:
+- Time: HH:MM format, 00:00-23:59
+- Name: 1-100 characters, no special characters
+- Day: Must be valid weekday
+- Timezone: Must be from supported list
+- Ping: Must be true or false
+- No duplicate reminders allowed
+
+TROUBLESHOOTING
+---------------
+
+COMPREHENSIVE PROBLEM-SOLVING GUIDE:
+
+BOT NOT RESPONDING:
+SYMPTOMS:
+- Commands don't work
+- No response from bot
+- Bot appears offline
+
+CHECKLIST:
+1. Verify bot is online
+   - Check bot's status in Discord
+   - Look for green circle next to bot name
+   - Bot should show "Online" status
+
+2. Check bot permissions
+   - Go to Server Settings → Roles
+   - Verify bot has "Send Messages" permission
+   - Ensure "Use Slash Commands" is enabled
+   - Check "Read Message History" permission
+
+3. Verify slash commands
+   - Type "/" to see command list
+   - Commands should appear in dropdown
+   - Ensure you're typing in correct channel
+
+4. Check bot connectivity
+   - Can other users use commands?
+   - Try in different channel
+   - Check if bot was restarted
+
+REMINDERS NOT TRIGGERING:
+SYMPTOMS:
+- No reminder notifications
+- Reminders appear to skip
+- Time seems wrong
+
+CHECKLIST:
+1. Verify bot is running and online
+   - Bot must be continuously running
+   - Check console for errors
+   - Ensure no crashes occurred
+
+2. Check your timezone setting
+   - Verify timezone is correct for your location
+   - Test with a simple reminder
+   - Confirm time matches local time
+
+3. Ensure reminder time hasn't passed
+   - Check if time was in the past
+   - Verify day selection is correct
+   - Consider next occurrence
+
+4. Check reminder status
+   - Use /list to verify reminder is active
+   - Ensure reminder wasn't accidentally removed
+   - Check repeat settings if applicable
+
+5. Verify scheduling system
+   - Bot checks reminders every minute
+   - System handles timezone conversions
+   - Automatic recovery after restarts
+
+DM NOT WORKING:
+SYMPTOMS:
+- No direct messages from bot
+- Reminders only appear in channels
+- Error messages about DM failure
+
+SOLUTIONS:
+1. Enable DMs from server members
+   - Discord Settings → Privacy & Safety
+   - Enable "Allow direct messages from server members"
+   - Toggle "Keep direct messages from server members"
+
+2. Check privacy settings
+   - Server Settings → Privacy Settings
+   - Ensure DMs aren't blocked
+   - Check "Who can send you a direct message"
+
+3. Verify bot isn't blocked
+   - Privacy & Safety → Blocked Users
+   - Remove bot from blocked list if present
+   - Restart Discord after changes
+
+4. Fallback system
+   - Bot automatically sends to channel if DM fails
+   - You'll be pinged in the channel
+   - All functionality preserved
+
+BUTTONS NOT WORKING:
+SYMPTOMS:
+- Can't click reminder buttons
+- Buttons appear disabled
+- "Interaction failed" messages
+
+SOLUTIONS:
+1. Verify ownership
+   - Only reminder owner can click buttons
+   - Check if you created the reminder
+   - Use /list to confirm ownership
+
+2. Check button timeout
+   - Buttons expire after 24 hours
+   - Old reminders show disabled buttons
+   - Create new reminder if needed
+
+3. Refresh reminder
+   - Edit reminder to reset buttons
+   - Or create new reminder
+   - Check for system updates
+
+4. Permission issues
+   - Ensure bot has "Add Reactions" permission
+   - Check "Use External Emojis" permission
+   - Verify channel allows embeds
+
+PERFORMANCE ISSUES:
+SYMPTOMS:
+- Slow command responses
+- Delayed reminders
+- Bot lagging
+
+OPTIMIZATION:
+1. Check bot load
+   - High server usage can slow responses
+   - Multiple reminders may cause delays
+   - Monitor system resources
+
+2. Network issues
+   - Check internet connection
+   - Verify Discord API status
+   - Consider bot hosting quality
+
+3. Database performance
+   - Large reminder counts may slow queries
+   - Regular cleanup helps performance
+   - Monitor database size
+
+ADVANCED TROUBLESHOOTING:
+
+LOG ANALYSIS:
+- Check bot console for errors
+- Look for database connection issues
+- Monitor API rate limits
+- Track memory usage
+
+RECOVERY PROCEDURES:
+1. Bot restart
+   - Stop and restart bot application
+   - Check for startup errors
+   - Verify all modules load correctly
+
+2. Database check
+   - Ensure reminders.db file exists
+   - Check file permissions
+   - Verify database integrity
+
+3. Command re-deployment
+   - Restart bot to reload commands
+   - Check for command registration errors
+   - Verify slash command permissions
+
+CONTACT SUPPORT:
+If issues persist:
+1. Document the problem
+2. Note error messages
+3. Check bot status page
+4. Contact developer: oroprogamer24
+5. Report in Discord support channel
+
+BEST PRACTICES
+--------------
+
+COMPREHENSIVE USAGE GUIDELINES:
+
+1. USE DESCRIPTIVE REMINDER NAMES
+   - Be specific about what needs to be done
+   - Include context if helpful (e.g., "Call mom about birthday")
+   - Keep names under 100 characters
+   - Avoid special characters that might cause issues
+   - Examples: "Morning workout", "Team standup meeting", "Take vitamins"
+
+2. SET APPROPRIATE TIMEZONES
+   - Choose your actual timezone for accurate timing
+   - Test with a simple reminder first
+   - Consider daylight saving time changes
+   - Use consistent timezone across all reminders
+   - Update timezone if you move to different region
+
+3. ENABLE PING STRATEGICALLY
+   - Use ping for important/time-sensitive reminders
+   - Disable ping for frequent reminders to avoid spam
+   - Consider server etiquette and notification fatigue
+   - Balance between awareness and annoyance
+   - Test ping settings with your schedule
+
+4. USE REPEAT FOR DAILY HABITS
+   - Perfect for recurring tasks (medication, exercise)
+   - Build consistent daily routines
+   - Set multiple reminders for complex habits
+   - Combine different days for varied schedules
+   - Review repeat settings weekly
+
+5. REGULARLY CHECK YOUR STATS
+   - Monitor completion rates weekly
+   - Track streak progress
+   - Identify patterns in missed reminders
+   - Adjust schedule based on performance data
+   - Celebrate milestones and achievements
+
+6. CLEAN UP OLD REMINDERS
+   - Remove completed project reminders
+   - Archive important but inactive reminders
+   - Use /clean for fresh starts when needed
+   - Keep active list manageable
+   - Prevent reminder clutter
+
+7. TEST WITH SIMPLE REMINDERS FIRST
+   - Start with basic time/day combinations
+   - Verify timezone accuracy
+   - Test DM delivery and button functionality
+   - Check notification timing
+   - Gradually add complexity
+
+8. MAINTAIN STREAK EFFECTIVELY
+   - Focus on consistency over perfection
+   - Set realistic reminder schedules
+   - Use backup reminders for important tasks
+   - Don't get discouraged by resets
+   - Build habits gradually
+
+9. ORGANIZE REMINDERS LOGICALLY
+   - Group similar reminders together
+   - Use consistent naming conventions
+   - Separate work and personal reminders
+   - Color-code with emojis in names (optional)
+   - Create reminder categories mentally
+
+10. PLAN FOR CONTINGENCIES
+    - Set buffer time before deadlines
+    - Create backup reminders for critical tasks
+    - Use multiple notification methods when possible
+    - Have alternative contact methods
+    - Plan for bot downtime
+
+11. RESPECT SERVER ETIQUETTE
+    - Limit ping usage in busy servers
+    - Consider time zones of team members
+    - Use appropriate channels for reminders
+    - Avoid reminder spam
+    - Be mindful of notification volume
+
+12. BACKUP IMPORTANT DATA
+    - Screenshot critical reminder lists
+    - Note important reminder patterns
+    - Keep personal records of streaks
+    - Document successful reminder strategies
+    - Export data if bot provides export feature
+
+13. OPTIMIZE PERFORMANCE
+    - Limit total number of active reminders
+    - Use repeat instead of multiple similar reminders
+    - Regular maintenance with /clean
+    - Monitor bot performance
+    - Report issues promptly
+
+14. SECURITY AND PRIVACY
+    - Keep reminder names appropriate
+    - Avoid sensitive personal information
+    - Use DMs for private reminders
+    - Be aware of server visibility
+    - Consider who can see your reminders
+
+15. CONTINUOUS IMPROVEMENT
+    - Learn from missed reminders
+    - Adjust schedules based on performance
+    - Experiment with different reminder strategies
+    - Share successful techniques with others
+    - Stay updated on bot features
+
+REMEMBER:
+- The bot is a tool to help you stay organized
+- Find what works best for your personal workflow
+- Don't be afraid to experiment and adjust
+- Consistency is more important than perfection
+- The goal is to build better habits, not just complete reminders
+
+EXAMPLE WORKFLOWS
+-----------------
+
+REAL-WORLD SCENARIOS AND STEP-BY-STEP GUIDES:
+
+1. DAILY EXERCISE ROUTINE
+GOAL: Build consistent morning workout habit
+
+STEP-BY-STEP:
+1. /reminder name:"Morning run" time:"06:00" day:"Monday" timezone:"America/New_York" ping:true
+   → Creates base reminder for Monday 6:00 AM
+
+2. /repeat reminder:"Morning run - 06:00 on Monday" days:"Tuesday"
+   → Adds Tuesday to repeat schedule
+
+3. /repeat reminder:"Morning run - 06:00 on Monday" days:"Wednesday"
+   → Adds Wednesday to repeat schedule
+
+4. /repeat reminder:"Morning run - 06:00 on Monday" days:"Thursday"
+   → Adds Thursday to repeat schedule
+
+5. /repeat reminder:"Morning run - 06:00 on Monday" days:"Friday"
+   → Adds Friday to repeat schedule
+
+RESULT: Reminder repeats Monday-Friday at 6:00 AM
+TIP: Use /list to verify all repeat days are set correctly
+
+2. WORK SCHEDULE MANAGEMENT
+GOAL: Organize daily work meetings and tasks
+
+STEP-BY-STEP:
+1. /reminder name:"Daily standup" time:"09:00" day:"Monday" timezone:"America/New_York" ping:true
+   → Creates daily standup reminder
+
+2. /repeat reminder:"Daily standup - 09:00 on Monday" days:"Tuesday"
+3. /repeat reminder:"Daily standup - 09:00 on Monday" days:"Wednesday"
+4. /repeat reminder:"Daily standup - 09:00 on Monday" days:"Thursday"
+5. /repeat reminder:"Daily standup - 09:00 on Monday" days:"Friday"
+   → Sets work week standups
+
+6. /reminder name:"Weekly report" time:"16:00" day:"Friday" timezone:"America/New_York" ping:true
+   → Adds Friday afternoon report reminder
+
+7. /reminder name:"Team lunch" time:"12:30" day:"Wednesday" timezone:"America/New_York" ping:false
+   → Weekly team lunch without ping
+
+RESULT: Complete work week schedule
+TIP: Use different ping settings based on importance
+
+3. PERSONAL HEALTH MANAGEMENT
+GOAL: Manage medication and health routines
+
+STEP-BY-STEP:
+1. /reminder name:"Morning vitamins" time:"08:00" day:"Daily" timezone:"America/New_York" ping:false
+   → Daily morning medication
+
+2. /reminder name:"Evening medicine" time:"20:00" day:"Daily" timezone:"America/New_York" ping:false
+   → Daily evening medication
+
+3. /reminder name:"Doctor appointment" time:"14:30" day:"Tuesday" timezone:"America/New_York" ping:true
+   → One-time important appointment
+
+4. /reminder name:"Weekly meal prep" time:"18:00" day:"Sunday" timezone:"America/New_York" ping:true
+   → Sunday meal preparation
+
+RESULT: Comprehensive health management
+TIP: Use no-ping for frequent personal reminders
+
+4. STUDY SCHEDULE
+GOAL: Organize study sessions for exams
+
+STEP-BY-STEP:
+1. /reminder name:"Math study" time:"19:00" day:"Monday" timezone:"America/New_York" ping:true
+   → Monday math session
+
+2. /reminder name:"Science review" time:"19:00" day:"Tuesday" timezone:"America/New_York" ping:true
+   → Tuesday science review
+
+3. /reminder name:"History reading" time:"19:00" day:"Wednesday" timezone:"America/New_York" ping:true
+   → Wednesday history reading
+
+4. /repeat reminder:"Math study - 19:00 on Monday" days:"Thursday"
+5. /repeat reminder:"Math study - 19:00 on Monday" days:"Friday"
+   → Add Thursday/Friday math sessions
+
+6. /reminder name:"Weekly quiz" time:"15:00" day:"Friday" timezone:"America/New_York" ping:true
+   → Friday quiz reminder
+
+RESULT: Balanced study schedule
+TIP: Use /stats to track study consistency
+
+5. FAMILY AND SOCIAL REMINDERS
+GOAL: Maintain family connections and social commitments
+
+STEP-BY-STEP:
+1. /reminder name:"Call mom" time:"18:00" day:"Sunday" timezone:"America/New_York" ping:true
+   → Weekly family call
+
+2. /reminder name:"Date night" time:"19:00" day:"Friday" timezone:"America/New_York" ping:true
+   → Weekly date planning
+
+3. /reminder name:"Game night with friends" time:"20:00" day:"Saturday" timezone:"America/New_York" ping:false
+   → Social gathering without ping
+
+4. /reminder name:"Anniversary" time:"09:00" day:"Monday" timezone:"America/New_York" ping:true
+   → Special annual reminder
+
+RESULT: Balanced social life
+TIP: Mix ping settings based on importance
+
+6. PROJECT MANAGEMENT
+GOAL: Track project deadlines and milestones
+
+STEP-BY-STEP:
+1. /reminder name:"Project kickoff" time:"10:00" day:"Monday" timezone:"America/New_York" ping:true
+   → Project start meeting
+
+2. /reminder name:"Weekly progress check" time:"16:00" day:"Friday" timezone:"America/New_York" ping:true
+   → Friday progress review
+
+3. /reminder name:"Milestone 1 due" time:"17:00" day:"Wednesday" timezone:"America/New_York" ping:true
+   → Important deadline
+
+4. /reminder name:"Final presentation" time:"14:00" day:"Friday" timezone:"America/New_York" ping:true
+   → Project completion
+
+RESULT: Complete project timeline
+TIP: Use high-ping settings for deadlines
+
+7. HABIT BUILDING WORKFLOW
+GOAL: Build multiple positive habits simultaneously
+
+STEP-BY-STEP:
+1. /reminder name:"Morning meditation" time:"06:30" day:"Daily" timezone:"America/New_York" ping:false
+   → Daily mindfulness practice
+
+2. /reminder name:"Drink water" time:"08:00" day:"Daily" timezone:"America/New_York" ping:false
+   → Hydration reminder
+
+3. /reminder name:"Read for 30 minutes" time:"21:00" day:"Daily" timezone:"America/New_York" ping:false
+   → Daily reading habit
+
+4. /reminder name:"Journal" time:"22:00" day:"Daily" timezone:"America/New_York" ping:false
+   → Evening reflection
+
+5. /stats to track habit consistency
+6. /list to review all daily habits
+
+RESULT: Comprehensive habit system
+TIP: Use no-ping for frequent personal habits
+
+WORKFLOW MAINTENANCE:
+
+Weekly Review:
+1. /stats to check completion rates
+2. /list to review upcoming reminders
+3. /remove for completed project reminders
+4. /edit to adjust times if needed
+5. /repeat to modify habit schedules
+
+Monthly Cleanup:
+1. /clean to remove old project reminders
+2. Review streak progress
+3. Adjust schedules based on performance
+4. Plan new habit additions
+
+TIPS FOR SUCCESS:
+- Start small and build gradually
+- Test each workflow before full implementation
+- Adjust based on personal preferences
+- Use consistent naming conventions
+- Review and optimize regularly
+
+SUPPORT
+-------
+
+COMPREHENSIVE HELP AND RESOURCES:
+
+GETTING HELP:
+1. CONTACT DEVELOPER
+   - Discord Username: oroprogamer24
+   - Direct Message: https://discord.com/users/667791939453583373
+   - Response Time: Usually within 24 hours
+   - Best for: Bug reports, feature requests, technical issues
+
+2. DOCUMENTATION RESOURCES
+   - README.md: Technical setup and architecture
+   - usage.txt: This comprehensive user guide
+   - Command examples: Built into each command description
+   - Error messages: Detailed explanations included
+
+3. COMMUNITY SUPPORT
+   - Join the official Discord server (if available)
+   - Check server where bot is hosted
+   - Ask other users for tips and tricks
+   - Share your workflows and success stories
+
+4. SELF-HELP RESOURCES
+   - Use /help if available (shows command list)
+   - Check command descriptions for parameter details
+   - Review error messages for specific guidance
+   - Test with simple reminders first
+
+REPORTING ISSUES:
+
+When reporting problems, please include:
+- Bot version (if known)
+- Exact error message received
+- Command you were trying to use
+- Your timezone and time
+- Steps to reproduce the issue
+- Screenshots if applicable
+
+BUG REPORT TEMPLATE:
+```
+Issue: [Brief description]
+Command: /commandname parameters
+Error: [Exact error message]
+Timezone: [Your timezone]
+Expected: [What should happen]
+Actual: [What actually happened]
+Steps: [1, 2, 3...]
+```
+
+FEATURE REQUESTS:
+- Describe the feature you want
+- Explain how it would help you
+- Suggest how it might work
+- Consider if it helps others too
+- Be specific about requirements
+
+FEEDBACK:
+- What do you like about the bot?
+- What could be improved?
+- Any confusing features?
+- Missing functionality?
+- User experience suggestions
+
+UPDATES AND ANNOUNCEMENTS:
+- Follow the developer on Discord
+- Check bot status messages
+- Review README.md for version updates
+- Join announcement channels if available
+
+TROUBLESHOOTING FLOW:
+1. Check this usage guide first
+2. Try basic troubleshooting steps
+3. Search for similar issues
+4. Contact developer with details
+5. Provide feedback on resolution
+
+CONTRIBUTING:
+- Report bugs promptly
+- Suggest improvements
+- Share successful workflows
+- Help other users
+- Test new features
+
+DISCLAIMER:
+- Bot provided as-is without warranty
+- Developer not responsible for missed reminders
+- Use at your own risk
+- Backup important reminder information
+- Test critical reminders with multiple methods
+
+THANK YOU:
+Thank you for using the Discord Reminder Bot! Your feedback and support help improve the bot for everyone. Remember that the goal is to build better habits and stay organized - the bot is just a tool to help you achieve those goals.
+
+FINAL REMINDER:
+The bot is designed to be intuitive and user-friendly. Don't hesitate to experiment with different commands and find what works best for your personal workflow!

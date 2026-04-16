@@ -1,0 +1,22 @@
+{
+  "name": "discord-reminder-bot",
+  "version": "1.0.0",
+  "description": "A professional Discord reminder bot with scheduling and statistics",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": ["discord", "bot", "reminder", "scheduler"],
+  "author": "orzz",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "sqlite3": "^5.1.6",
+    "node-cron": "^3.0.3",
+    "moment-timezone": "^0.5.43"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
