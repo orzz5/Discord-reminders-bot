@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Discord Reminder Bot
 
 A professional Discord reminder bot with advanced scheduling, statistics tracking, and streak management.
@@ -203,3 +204,7 @@ For support or questions:
 - Multi-timezone support
 - Interactive button system
 - Comprehensive error handling
+=======
+# Discord-reminders-bot
+Discord reminder bot with /reminder, /list, /remove, /stats commands. Create scheduled reminders, track completion stats, build streaks, and manage tasks with timezone support and repeat options.
+>>>>>>> c112e85b934447f90f2a577a2663f12f6c56bbb5
